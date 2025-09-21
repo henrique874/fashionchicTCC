@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronLeft, ShoppingBag, Heart, Share2 } from "lucide-react";
 import { getProductById } from "@/data/products";
+import { useCart } from "@/contexts/CartContext";
 import SizeCalculator from "@/components/SizeCalculator";
 import SizeChart from "@/components/SizeChart";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { toast } from "@/hooks/use-toast";
 const ProductDetail = () => {
   const { id } = useParams();
   const product = getProductById(Number(id));
+  const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedImage, setSelectedImage] = useState(0);
@@ -29,7 +31,7 @@ const ProductDetail = () => {
     ? product.price * (1 - product.discount / 100)
     : product.price;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!selectedSize) {
       toast({
         title: "Selecione um tamanho",
@@ -46,9 +48,17 @@ const ProductDetail = () => {
       });
       return;
     }
-    toast({
-      title: "Produto adicionado!",
-      description: `${product.name} foi adicionado à sacola`,
+    
+    await addItem({
+      product_id: product.id,
+      product_name: product.name,
+      product_price: product.isSale && product.discount 
+        ? product.price * (1 - product.discount / 100)
+        : product.price,
+      product_image: product.images[0],
+      quantity: 1,
+      size: selectedSize,
+      color: selectedColor,
     });
   };
 
