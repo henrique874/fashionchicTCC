@@ -1,5 +1,5 @@
 export interface Product {
-  id: number;
+  id: string; // Changed to string for UUID
   name: string;
   price: number;
   category: 'feminino' | 'masculino';
@@ -17,7 +17,7 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    id: 1,
+    id: '1',
     name: "Vestido Midi Elegance",
     price: 389.90,
     category: "feminino",
@@ -34,7 +34,7 @@ export const products: Product[] = [
     isNew: true
   },
   {
-    id: 2,
+    id: '2',
     name: "Blazer Premium Alfaiataria",
     price: 599.90,
     category: "masculino",
@@ -52,7 +52,7 @@ export const products: Product[] = [
     discount: 20
   },
   {
-    id: 3,
+    id: '3',
     name: "Camisa Social Luxe",
     price: 279.90,
     category: "masculino",
@@ -68,7 +68,7 @@ export const products: Product[] = [
     care: "Lavar à máquina em água fria. Passar em temperatura média."
   },
   {
-    id: 4,
+    id: '4',
     name: "Saia Plissada Dourada",
     price: 459.90,
     category: "feminino",
@@ -85,7 +85,7 @@ export const products: Product[] = [
     isNew: true
   },
   {
-    id: 5,
+    id: '5',
     name: "Calça Alfaiataria Feminina",
     price: 349.90,
     category: "feminino",
@@ -101,7 +101,7 @@ export const products: Product[] = [
     care: "Lavar à máquina em programa delicado."
   },
   {
-    id: 6,
+    id: '6',
     name: "Blusa Seda Premium",
     price: 289.90,
     category: "feminino",
@@ -119,7 +119,7 @@ export const products: Product[] = [
     discount: 30
   },
   {
-    id: 7,
+    id: '7',
     name: "Calça Chino Premium",
     price: 329.90,
     category: "masculino",
@@ -135,7 +135,7 @@ export const products: Product[] = [
     care: "Lavar à máquina. Secar à sombra."
   },
   {
-    id: 8,
+    id: '8',
     name: "Jaqueta Couro Legítimo",
     price: 1299.90,
     category: "feminino",
@@ -152,7 +152,7 @@ export const products: Product[] = [
     isNew: true
   },
   {
-    id: 9,
+    id: '9',
     name: "Conjunto Terno Slim",
     price: 1599.90,
     category: "masculino",
@@ -170,7 +170,7 @@ export const products: Product[] = [
     discount: 25
   },
   {
-    id: 10,
+    id: '10',
     name: "Vestido Gala Longo",
     price: 899.90,
     category: "feminino",
@@ -186,7 +186,7 @@ export const products: Product[] = [
     care: "Lavagem a seco recomendada."
   },
   {
-    id: 11,
+    id: '11',
     name: "Polo Premium Cotton",
     price: 189.90,
     category: "masculino",
@@ -202,7 +202,7 @@ export const products: Product[] = [
     care: "Lavar à máquina em água fria."
   },
   {
-    id: 12,
+    id: '12',
     name: "Casaco Trench Coat",
     price: 799.90,
     category: "feminino",
@@ -220,7 +220,7 @@ export const products: Product[] = [
   }
 ];
 
-export const getProductById = (id: number): Product | undefined => {
+export const getProductById = (id: string): Product | undefined => {
   return products.find(product => product.id === id);
 };
 

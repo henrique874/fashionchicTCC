@@ -1,9 +1,16 @@
-import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
+import { User, ShoppingBag, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/contexts/CartContext";
+import AuthModal from "@/components/AuthModal";
+import SearchBar from "@/components/SearchBar";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const { itemCount } = useCart();
 
   return (
     <>
@@ -47,25 +54,23 @@ const Header = () => {
             {/* Ações */}
             <div className="flex items-center gap-4">
               {/* Busca Desktop */}
-              <div className="hidden md:flex items-center bg-muted rounded-lg px-4 py-2">
-                <Search className="w-4 h-4 text-muted-foreground mr-2" />
-                <input
-                  type="search"
-                  placeholder="Buscar produtos..."
-                  className="bg-transparent outline-none text-sm w-48 placeholder:text-muted-foreground"
-                />
-              </div>
+              <SearchBar className="hidden md:flex w-48" />
 
               {/* Ícones */}
-              <button className="p-2 hover:text-primary transition-colors">
+              <button 
+                onClick={() => user ? signOut() : setAuthModalOpen(true)}
+                className="p-2 hover:text-primary transition-colors"
+              >
                 <User className="w-5 h-5" />
               </button>
-              <button className="p-2 hover:text-primary transition-colors relative">
+              <Link to="/carrinho" className="p-2 hover:text-primary transition-colors relative">
                 <ShoppingBag className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                  0
-                </span>
-              </button>
+                {itemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {itemCount}
+                  </span>
+                )}
+              </Link>
 
               {/* Menu Mobile */}
               <button
@@ -99,18 +104,14 @@ const Header = () => {
               </Link>
               
               {/* Busca Mobile */}
-              <div className="flex items-center bg-muted rounded-lg px-4 py-2 mt-2">
-                <Search className="w-4 h-4 text-muted-foreground mr-2" />
-                <input
-                  type="search"
-                  placeholder="Buscar produtos..."
-                  className="bg-transparent outline-none text-sm flex-1 placeholder:text-muted-foreground"
-                />
-              </div>
+              <SearchBar className="w-full mt-2" />
             </nav>
           </div>
         )}
       </header>
+      
+      {/* Auth Modal */}
+      <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
     </>
   );
 };

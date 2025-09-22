@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './AuthContext';
 import { toast } from '@/hooks/use-toast';
 
 export interface CartItem {
   id: string;
-  product_id: number;
+  product_id: string; // UUID in database
   product_name: string;
   product_price: number;
   product_image: string;
@@ -48,12 +48,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         setLoading(true);
         try {
           const { data, error } = await supabase
-            .from('cart_items')
+            .from('cart')
             .select('*')
             .eq('user_id', user.id);
 
           if (error) throw error;
-          setItems(data || []);
+          
+          // Map cart items to match our interface
+          const mappedItems = (data || []).map(item => ({
+            id: item.id,
+            product_id: item.product_id,
+            product_name: '', // We'll need to join with products table
+            product_price: 0,
+            product_image: '',
+            quantity: item.quantity,
+            size: item.size,
+            color: item.color,
+          }));
+          
+          setItems(mappedItems);
         } catch (error) {
           console.error('Error loading cart:', error);
         } finally {
@@ -83,16 +96,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (user) {
         // Add to database
         const { data, error } = await supabase
-          .from('cart_items')
+          .from('cart')
           .insert({
-            ...item,
             user_id: user.id,
+            product_id: item.product_id,
+            quantity: item.quantity,
+            size: item.size,
+            color: item.color,
           })
           .select()
           .single();
 
         if (error) throw error;
-        setItems([...items, data]);
+        
+        const newItem = {
+          ...item,
+          id: data.id,
+        };
+        setItems([...items, newItem]);
       } else {
         // Add to local state
         const newItem = {
@@ -118,7 +139,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     try {
       if (user) {
         const { error } = await supabase
-          .from('cart_items')
+          .from('cart')
           .delete()
           .eq('id', id);
 
@@ -145,7 +166,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     try {
       if (user) {
         const { error } = await supabase
-          .from('cart_items')
+          .from('cart')
           .update({ quantity })
           .eq('id', id);
 
@@ -167,7 +188,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     try {
       if (user) {
         const { error } = await supabase
-          .from('cart_items')
+          .from('cart')
           .delete()
           .eq('user_id', user.id);
 

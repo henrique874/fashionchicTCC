@@ -12,6 +12,11 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
+import Category from "./pages/Category";
+import News from "./pages/News";
+import Collections from "./pages/Collections";
+import Sale from "./pages/Sale";
+import SearchResults from "./pages/SearchResults";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +41,11 @@ const App = () => (
               <Route path="/produto/:id" element={<Layout><ProductDetail /></Layout>} />
               <Route path="/carrinho" element={<Layout><Cart /></Layout>} />
               <Route path="/checkout" element={<Layout><Checkout /></Layout>} />
+              <Route path="/categoria/:category" element={<Layout><Category /></Layout>} />
+              <Route path="/novidades" element={<Layout><News /></Layout>} />
+              <Route path="/colecoes" element={<Layout><Collections /></Layout>} />
+              <Route path="/sale" element={<Layout><Sale /></Layout>} />
+              <Route path="/busca" element={<Layout><SearchResults /></Layout>} />
               <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>
           </CartProvider>
