@@ -19,14 +19,14 @@ export const products: Product[] = [
   {
     id: '1',
     name: "Vestido Midi Elegance",
-    price: 389.90,
+    price: 1289.90,
     category: "feminino",
     type: "Vestido",
     colors: ["Preto", "Dourado", "Bege"],
     sizes: ["PP", "P", "M", "G", "GG"],
     images: [
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1596783074918-c84cb06531ca?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1566479179459-7c8c1839c3cd?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop"
     ],
     description: "Vestido midi com corte elegante e caimento impecável. Perfeito para ocasiões especiais.",
     composition: "95% Poliéster, 5% Elastano",
@@ -36,13 +36,13 @@ export const products: Product[] = [
   {
     id: '2',
     name: "Blazer Premium Alfaiataria",
-    price: 599.90,
+    price: 2199.90,
     category: "masculino",
     type: "Blazer",
     colors: ["Preto", "Cinza", "Azul Marinho"],
     sizes: ["P", "M", "G", "GG", "XG"],
     images: [
-      "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop",
       "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop"
     ],
     description: "Blazer com modelagem slim e acabamento premium. Ideal para o executivo moderno.",
@@ -54,13 +54,13 @@ export const products: Product[] = [
   {
     id: '3',
     name: "Camisa Social Luxe",
-    price: 279.90,
+    price: 879.90,
     category: "masculino",
     type: "Camisa",
     colors: ["Branco", "Azul Claro", "Rosa"],
     sizes: ["P", "M", "G", "GG"],
     images: [
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1602810318660-d2c46b750f88?w=600&h=800&fit=crop",
       "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=600&h=800&fit=crop"
     ],
     description: "Camisa social com tecido egípcio de alta qualidade. Conforto e elegância.",
@@ -69,15 +69,15 @@ export const products: Product[] = [
   },
   {
     id: '4',
-    name: "Saia Plissada ",
-    price: 459.90,
+    name: "Saia Plissada Metalizada",
+    price: 1459.90,
     category: "feminino",
     type: "Saia",
     colors: ["Dourado", "Prata", "Preto"],
     sizes: ["PP", "P", "M", "G"],
     images: [
       "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1756483510802-0acac24ab4e8?q=80&w=687&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop"
     ],
     description: "Saia plissada metalizada com movimento e brilho. Tendência da estação.",
     composition: "80% Poliéster, 20% Lurex",
@@ -87,14 +87,14 @@ export const products: Product[] = [
   {
     id: '5',
     name: "Calça Alfaiataria Feminina",
-    price: 349.90,
+    price: 1149.90,
     category: "feminino",
     type: "Calça",
     colors: ["Preto", "Bege", "Branco"],
     sizes: ["34", "36", "38", "40", "42", "44"],
     images: [
-      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop"
     ],
     description: "Calça de alfaiataria com corte reto e cintura alta. Versatilidade e elegância.",
     composition: "65% Poliéster, 32% Viscose, 3% Elastano",
@@ -103,14 +103,14 @@ export const products: Product[] = [
   {
     id: '6',
     name: "Blusa Seda Premium",
-    price: 289.90,
+    price: 989.90,
     category: "feminino",
     type: "Blusa",
     colors: ["Champagne", "Preto", "Vinho"],
     sizes: ["PP", "P", "M", "G", "GG"],
     images: [
-      "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1735093963081-44f5c73df29e?w=600&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&h=800&fit=crop"
     ],
     description: "Blusa em seda pura com caimento fluido. Sofisticação em cada detalhe.",
     composition: "100% Seda",
@@ -121,14 +121,14 @@ export const products: Product[] = [
   {
     id: '7',
     name: "Calça Chino Premium",
-    price: 329.90,
+    price: 1029.90,
     category: "masculino",
     type: "Calça",
     colors: ["Bege", "Azul Marinho", "Verde Militar"],
     sizes: ["38", "40", "42", "44", "46"],
     images: [
-      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&h=800&fit=crop"
     ],
     description: "Calça chino com tecido de alta qualidade. Casual elegante.",
     composition: "98% Algodão, 2% Elastano",
@@ -137,14 +137,14 @@ export const products: Product[] = [
   {
     id: '8',
     name: "Jaqueta Couro Legítimo",
-    price: 1299.90,
+    price: 3999.90,
     category: "feminino",
     type: "Jaqueta",
     colors: ["Preto", "Caramelo"],
     sizes: ["P", "M", "G", "GG"],
     images: [
-      "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1557418669-db3f781a58c0?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=600&h=800&fit=crop"
     ],
     description: "Jaqueta em couro legítimo com design atemporal. Investimento em estilo.",
     composition: "100% Couro Bovino",
@@ -154,14 +154,14 @@ export const products: Product[] = [
   {
     id: '9',
     name: "Conjunto Terno Slim",
-    price: 1599.90,
+    price: 4599.90,
     category: "masculino",
     type: "Terno",
     colors: ["Preto", "Cinza Chumbo", "Azul Marinho"],
     sizes: ["P", "M", "G", "GG"],
     images: [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop"
     ],
     description: "Terno completo com corte slim moderno. Elegância para todas as ocasiões.",
     composition: "55% Lã, 45% Poliéster",
@@ -172,14 +172,14 @@ export const products: Product[] = [
   {
     id: '10',
     name: "Vestido Gala Longo",
-    price: 899.90,
+    price: 2899.90,
     category: "feminino",
     type: "Vestido",
     colors: ["Preto", "Vermelho", "Azul Royal"],
     sizes: ["PP", "P", "M", "G"],
     images: [
       "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1596783074918-c84cb06531ca?w=600&h=800&fit=crop"
     ],
     description: "Vestido longo para ocasiões especiais. Corte sereia com detalhes em renda.",
     composition: "60% Poliéster, 35% Viscose, 5% Elastano",
@@ -188,14 +188,14 @@ export const products: Product[] = [
   {
     id: '11',
     name: "Polo Premium Cotton",
-    price: 189.90,
+    price: 689.90,
     category: "masculino",
     type: "Polo",
     colors: ["Branco", "Preto", "Azul Marinho", "Vinho"],
     sizes: ["P", "M", "G", "GG", "XG"],
     images: [
-      "https://images.unsplash.com/photo-1625910513390-a0e9b3306112?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1626497764746-6dc36546b388?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1625910513390-a0e9b3306112?w=600&h=800&fit=crop"
     ],
     description: "Polo em algodão Pima de alta qualidade. Conforto e estilo casual.",
     composition: "100% Algodão Pima",
@@ -204,14 +204,14 @@ export const products: Product[] = [
   {
     id: '12',
     name: "Casaco Trench Coat",
-    price: 499.90,
+    price: 1599.90,
     category: "feminino",
     type: "Casaco",
     colors: ["Bege", "Preto", "Verde Militar"],
     sizes: ["P", "M", "G", "GG"],
     images: [
       "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600&h=800&fit=crop",
-      "https://https://images.unsplash.com/photo-1723390926441-5840f12432fc"
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&h=800&fit=crop"
     ],
     description: "Trench coat clássico com cinto. Peça icônica do guarda-roupa.",
     composition: "100% Gabardine de Algodão",
