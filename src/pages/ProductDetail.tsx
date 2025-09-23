@@ -10,7 +10,7 @@ import { toast } from "@/hooks/use-toast";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = getProductById(Number(id));
+  const product = getProductById(id || "");
   const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");

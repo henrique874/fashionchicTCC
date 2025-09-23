@@ -17,6 +17,7 @@ import News from "./pages/News";
 import Collections from "./pages/Collections";
 import Sale from "./pages/Sale";
 import SearchResults from "./pages/SearchResults";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
               <Route path="/colecoes" element={<Layout><Collections /></Layout>} />
               <Route path="/sale" element={<Layout><Sale /></Layout>} />
               <Route path="/busca" element={<Layout><SearchResults /></Layout>} />
+              <Route path="/perfil" element={<Layout><Profile /></Layout>} />
               <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>
           </CartProvider>

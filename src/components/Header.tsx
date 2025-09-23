@@ -1,10 +1,11 @@
-import { User, ShoppingBag, Menu, X } from "lucide-react";
+import { User, ShoppingBag, Menu, X, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import AuthModal from "@/components/AuthModal";
 import SearchBar from "@/components/SearchBar";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -57,12 +58,32 @@ const Header = () => {
               <SearchBar className="hidden md:flex w-48" />
 
               {/* Ícones */}
-              <button 
-                onClick={() => user ? signOut() : setAuthModalOpen(true)}
-                className="p-2 hover:text-primary transition-colors"
-              >
-                <User className="w-5 h-5" />
-              </button>
+              {user ? (
+                <>
+                  <Link 
+                    to="/perfil"
+                    className="p-2 hover:text-primary transition-colors"
+                    title="Meu Perfil"
+                  >
+                    <User className="w-5 h-5" />
+                  </Link>
+                  <button 
+                    onClick={signOut}
+                    className="p-2 hover:text-primary transition-colors"
+                    title="Sair"
+                  >
+                    <LogOut className="w-5 h-5" />
+                  </button>
+                </>
+              ) : (
+                <button 
+                  onClick={() => setAuthModalOpen(true)}
+                  className="p-2 hover:text-primary transition-colors"
+                  title="Entrar"
+                >
+                  <User className="w-5 h-5" />
+                </button>
+              )}
               <Link to="/carrinho" className="p-2 hover:text-primary transition-colors relative">
                 <ShoppingBag className="w-5 h-5" />
                 {itemCount > 0 && (
