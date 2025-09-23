@@ -69,7 +69,7 @@ export const products: Product[] = [
   },
   {
     id: '4',
-    name: "Saia Plissada Dourada",
+    name: "Saia Plissada ",
     price: 459.90,
     category: "feminino",
     type: "Saia",
@@ -77,7 +77,7 @@ export const products: Product[] = [
     sizes: ["PP", "P", "M", "G"],
     images: [
       "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1756483510802-0acac24ab4e8?q=80&w=687&auto=format&fit=crop"
     ],
     description: "Saia plissada metalizada com movimento e brilho. Tendência da estação.",
     composition: "80% Poliéster, 20% Lurex",
@@ -110,7 +110,7 @@ export const products: Product[] = [
     sizes: ["PP", "P", "M", "G", "GG"],
     images: [
       "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1735093963081-44f5c73df29e?w=600&auto=format&fit=crop"
     ],
     description: "Blusa em seda pura com caimento fluido. Sofisticação em cada detalhe.",
     composition: "100% Seda",
@@ -204,14 +204,14 @@ export const products: Product[] = [
   {
     id: '12',
     name: "Casaco Trench Coat",
-    price: 799.90,
+    price: 499.90,
     category: "feminino",
     type: "Casaco",
     colors: ["Bege", "Preto", "Verde Militar"],
     sizes: ["P", "M", "G", "GG"],
     images: [
       "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600&h=800&fit=crop"
+      "https://https://images.unsplash.com/photo-1723390926441-5840f12432fc"
     ],
     description: "Trench coat clássico com cinto. Peça icônica do guarda-roupa.",
     composition: "100% Gabardine de Algodão",
