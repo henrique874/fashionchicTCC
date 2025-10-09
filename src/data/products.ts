@@ -403,13 +403,125 @@ export const products: Product[] = [
     category: "masculino",
     type: "Calça",
     colors: ["Preto", "Cinza", "Azul Marinho"],
-    sizes: ["P", "M", "G", "GG", "XG"],
+    sizes: ["38", "40", "42", "44", "46"],
     images: [
       "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&h=800&fit=crop",
       "https://images.unsplash.com/photo-1516826957135-700dedea698c?w=600&h=800&fit=crop"
     ],
     description: "Calça jogger com tecido tech. Conforto e estilo urbano.",
     composition: "65% Algodão, 30% Poliéster, 5% Elastano",
+    care: "Lavar à máquina."
+  },
+  {
+    id: '25',
+    name: "Calça Wide Leg Linho",
+    price: 489.90,
+    category: "feminino",
+    type: "Calça",
+    colors: ["Branco", "Bege", "Azul"],
+    sizes: ["34", "36", "38", "40", "42", "44"],
+    images: [
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1624206112918-70f5157673f0?w=600&h=800&fit=crop"
+    ],
+    description: "Calça pantalona em linho. Frescor e movimento para o verão.",
+    composition: "100% Linho",
+    care: "Lavar à máquina. Secar à sombra."
+  },
+  {
+    id: '26',
+    name: "Calça Cargo Masculina",
+    price: 419.90,
+    category: "masculino",
+    type: "Calça",
+    colors: ["Verde Militar", "Bege", "Preto"],
+    sizes: ["38", "40", "42", "44", "46", "48"],
+    images: [
+      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1542574271-7f3b92e6c821?w=600&h=800&fit=crop"
+    ],
+    description: "Calça cargo com múltiplos bolsos. Estilo urbano e funcional.",
+    composition: "98% Algodão, 2% Elastano",
+    care: "Lavar à máquina."
+  },
+  {
+    id: '27',
+    name: "Calça Skinny Couro Ecológico",
+    price: 579.90,
+    category: "feminino",
+    type: "Calça",
+    colors: ["Preto", "Vinho"],
+    sizes: ["34", "36", "38", "40", "42"],
+    images: [
+      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop"
+    ],
+    description: "Calça skinny em couro ecológico. Atitude e estilo rock.",
+    composition: "100% Poliuretano",
+    care: "Limpar com pano úmido."
+  },
+  {
+    id: '28',
+    name: "Calça Social Slim Fit",
+    price: 469.90,
+    category: "masculino",
+    type: "Calça",
+    colors: ["Preto", "Cinza", "Azul Marinho"],
+    sizes: ["38", "40", "42", "44", "46", "48"],
+    images: [
+      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&h=800&fit=crop"
+    ],
+    description: "Calça social slim fit com vinco. Elegância profissional.",
+    composition: "68% Poliéster, 30% Viscose, 2% Elastano",
+    care: "Lavar à máquina em programa delicado."
+  },
+  {
+    id: '29',
+    name: "Calça Legging Premium",
+    price: 229.90,
+    category: "feminino",
+    type: "Calça",
+    colors: ["Preto", "Cinza", "Azul Marinho"],
+    sizes: ["PP", "P", "M", "G", "GG"],
+    images: [
+      "https://images.unsplash.com/photo-1526476148966-98bd039463ea?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop"
+    ],
+    description: "Legging de alta compressão. Conforto e modelagem perfeita.",
+    composition: "85% Poliamida, 15% Elastano",
+    care: "Lavar à máquina em água fria."
+  },
+  {
+    id: '30',
+    name: "Jeans Reta Masculino",
+    price: 379.90,
+    category: "masculino",
+    type: "Calça",
+    colors: ["Azul Escuro", "Preto", "Azul Médio"],
+    sizes: ["38", "40", "42", "44", "46", "48"],
+    images: [
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&h=800&fit=crop"
+    ],
+    description: "Jeans com modelagem reta clássica. Versátil e atemporal.",
+    composition: "98% Algodão, 2% Elastano",
+    care: "Lavar do avesso."
+  },
+  {
+    id: '31',
+    name: "Calça Flare Cintura Alta",
+    price: 519.90,
+    category: "feminino",
+    type: "Calça",
+    colors: ["Preto", "Jeans", "Caramelo"],
+    sizes: ["34", "36", "38", "40", "42", "44"],
+    images: [
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&h=800&fit=crop"
+    ],
+    description: "Calça flare de cintura alta. Retro chic e alongamento das pernas.",
+    composition: "96% Algodão, 4% Elastano",
     care: "Lavar à máquina."
   }
 ];

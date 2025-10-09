@@ -53,6 +53,9 @@ const Header = () => {
               <Link to="/sale" className="text-destructive hover:text-destructive/80 transition-colors font-medium">
                 Sale
               </Link>
+              <Link to="/doacao" className="text-foreground hover:text-primary transition-colors font-medium">
+                Doação
+              </Link>
             </nav>
 
             {/* Ações */}
@@ -128,6 +131,9 @@ const Header = () => {
               </Link>
               <Link to="/sale" className="text-destructive hover:text-destructive/80 transition-colors font-medium">
                 Sale
+              </Link>
+              <Link to="/doacao" className="text-foreground hover:text-primary transition-colors font-medium">
+                Doação
               </Link>
               
               {/* Busca Mobile */}

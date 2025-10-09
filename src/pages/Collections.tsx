@@ -8,7 +8,7 @@ const Collections = () => {
       name: "Coleção Inverno 2024",
       description: "Elegância e conforto para os dias frios",
       image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80",
-      link: "/colecao/inverno-2024",
+      link: "/colecao/inverno",
       season: "inverno"
     },
     {
@@ -16,7 +16,7 @@ const Collections = () => {
       name: "Coleção Verão 2024",
       description: "Leveza e estilo para dias ensolarados",
       image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=80",
-      link: "/colecao/verao-2024",
+      link: "/colecao/verao",
       season: "verao"
     },
     {
@@ -105,7 +105,7 @@ const Collections = () => {
                 <span className="text-sm">Acessórios térmicos elegantes</span>
               </li>
             </ul>
-            <Link to="/categoria/feminino">
+            <Link to="/colecao/inverno">
               <Button className="w-full">Ver Coleção Completa</Button>
             </Link>
           </div>
@@ -131,7 +131,7 @@ const Collections = () => {
                 <span className="text-sm">Beachwear sofisticado</span>
               </li>
             </ul>
-            <Link to="/categoria/masculino">
+            <Link to="/colecao/verao">
               <Button className="w-full">Ver Coleção Completa</Button>
             </Link>
           </div>
