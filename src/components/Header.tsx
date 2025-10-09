@@ -41,6 +41,9 @@ const Header = () => {
               <Link to="/categoria/masculino" className="text-foreground hover:text-primary transition-colors font-medium">
                 Masculino
               </Link>
+              <Link to="/calcas" className="text-foreground hover:text-primary transition-colors font-medium">
+                Calças
+              </Link>
               <Link to="/novidades" className="text-foreground hover:text-primary transition-colors font-medium">
                 Novidades
               </Link>
@@ -113,6 +116,9 @@ const Header = () => {
               </Link>
               <Link to="/categoria/masculino" className="text-foreground hover:text-primary transition-colors font-medium">
                 Masculino
+              </Link>
+              <Link to="/calcas" className="text-foreground hover:text-primary transition-colors font-medium">
+                Calças
               </Link>
               <Link to="/novidades" className="text-foreground hover:text-primary transition-colors font-medium">
                 Novidades

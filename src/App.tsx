@@ -18,6 +18,7 @@ import Collections from "./pages/Collections";
 import Sale from "./pages/Sale";
 import SearchResults from "./pages/SearchResults";
 import Profile from "./pages/Profile";
+import Pants from "./pages/Pants";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
               <Route path="/carrinho" element={<Layout><Cart /></Layout>} />
               <Route path="/checkout" element={<Layout><Checkout /></Layout>} />
               <Route path="/categoria/:category" element={<Layout><Category /></Layout>} />
+              <Route path="/calcas" element={<Layout><Pants /></Layout>} />
               <Route path="/novidades" element={<Layout><News /></Layout>} />
               <Route path="/colecoes" element={<Layout><Collections /></Layout>} />
               <Route path="/sale" element={<Layout><Sale /></Layout>} />

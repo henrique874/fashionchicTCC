@@ -4,9 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const SizeCalculator = () => {
+interface SizeCalculatorProps {
+  mode?: "clothing" | "pants";
+}
+
+const SizeCalculator = ({ mode = "clothing" }: SizeCalculatorProps) => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+  const [waist, setWaist] = useState("");
+  const [hip, setHip] = useState("");
   const [recommendedSize, setRecommendedSize] = useState("");
   const [error, setError] = useState("");
 
@@ -28,7 +34,45 @@ const SizeCalculator = () => {
       return;
     }
 
-    // Cálculo do IMC
+    if (mode === "pants") {
+      const waistNum = parseFloat(waist);
+      const hipNum = parseFloat(hip);
+
+      if (!waistNum || waistNum < 60 || waistNum > 120) {
+        setError("Por favor, insira uma cintura válida entre 60 e 120 cm");
+        return;
+      }
+
+      if (!hipNum || hipNum < 80 || hipNum > 140) {
+        setError("Por favor, insira um quadril válido entre 80 e 140 cm");
+        return;
+      }
+
+      // Cálculo do tamanho de calça baseado em cintura e quadril
+      const avgMeasure = (waistNum + hipNum) / 2;
+      let pantsSize = "";
+
+      if (avgMeasure < 85) {
+        pantsSize = "36";
+      } else if (avgMeasure < 90) {
+        pantsSize = "38";
+      } else if (avgMeasure < 95) {
+        pantsSize = "40";
+      } else if (avgMeasure < 100) {
+        pantsSize = "42";
+      } else if (avgMeasure < 105) {
+        pantsSize = "44";
+      } else if (avgMeasure < 110) {
+        pantsSize = "46";
+      } else {
+        pantsSize = "48";
+      }
+
+      setRecommendedSize(pantsSize);
+      return;
+    }
+
+    // Cálculo do IMC para roupas em geral
     const heightInMeters = heightNum / 100;
     const imc = weightNum / (heightInMeters * heightInMeters);
 
@@ -71,7 +115,9 @@ const SizeCalculator = () => {
       </div>
 
       <p className="text-sm text-muted-foreground mb-4">
-        Insira sua altura e peso para receber uma recomendação personalizada
+        {mode === "pants" 
+          ? "Insira suas medidas para receber uma recomendação de tamanho de calça"
+          : "Insira suas medidas para receber uma recomendação personalizada"}
       </p>
 
       <div className="space-y-4">
@@ -102,6 +148,38 @@ const SizeCalculator = () => {
             className="mt-1"
           />
         </div>
+
+        {mode === "pants" && (
+          <>
+            <div>
+              <Label htmlFor="waist">Cintura (cm)</Label>
+              <Input
+                id="waist"
+                type="number"
+                min="60"
+                max="120"
+                placeholder="Ex: 75"
+                value={waist}
+                onChange={(e) => setWaist(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="hip">Quadril (cm)</Label>
+              <Input
+                id="hip"
+                type="number"
+                min="80"
+                max="140"
+                placeholder="Ex: 95"
+                value={hip}
+                onChange={(e) => setHip(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+          </>
+        )}
 
         <Button
           onClick={calculateSize}

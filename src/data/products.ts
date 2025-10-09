@@ -42,8 +42,8 @@ export const products: Product[] = [
     colors: ["Preto", "Cinza", "Azul Marinho"],
     sizes: ["P", "M", "G", "GG", "XG"],
     images: [
-      "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1611937663641-5cef5189d71b?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=600&h=800&fit=crop"
     ],
     description: "Blazer com modelagem slim e acabamento premium. Ideal para o executivo moderno.",
     composition: "60% Lã, 38% Poliéster, 2% Elastano",
@@ -109,8 +109,8 @@ export const products: Product[] = [
     colors: ["Champagne", "Preto", "Vinho"],
     sizes: ["PP", "P", "M", "G", "GG"],
     images: [
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1618354691438-25bc04584c23?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&h=800&fit=crop"
     ],
     description: "Blusa em seda pura com caimento fluido. Sofisticação em cada detalhe.",
     composition: "100% Seda",
@@ -160,8 +160,8 @@ export const products: Product[] = [
     colors: ["Preto", "Cinza Chumbo", "Azul Marinho"],
     sizes: ["P", "M", "G", "GG"],
     images: [
-      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1600091166971-7f9faad6c1e2?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop"
     ],
     description: "Terno completo com corte slim moderno. Elegância para todas as ocasiões.",
     composition: "55% Lã, 45% Poliéster",
