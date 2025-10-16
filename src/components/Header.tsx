@@ -54,7 +54,10 @@ const Header = () => {
                 Sale
               </Link>
               <Link to="/doacao" className="text-foreground hover:text-primary transition-colors font-medium">
-                Doação
+                Doar Roupas
+              </Link>
+              <Link to="/doacoes" className="text-foreground hover:text-primary transition-colors font-medium">
+                Ver Doações
               </Link>
             </nav>
 
@@ -133,7 +136,10 @@ const Header = () => {
                 Sale
               </Link>
               <Link to="/doacao" className="text-foreground hover:text-primary transition-colors font-medium">
-                Doação
+                Doar Roupas
+              </Link>
+              <Link to="/doacoes" className="text-foreground hover:text-primary transition-colors font-medium">
+                Ver Doações
               </Link>
               
               {/* Busca Mobile */}

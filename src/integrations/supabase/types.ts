@@ -52,6 +52,54 @@ export type Database = {
           },
         ]
       }
+      donations: {
+        Row: {
+          clothing_type: string
+          condition: string
+          created_at: string
+          description: string | null
+          donor_email: string
+          donor_name: string
+          donor_phone: string
+          id: string
+          image_url: string
+          size: string
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          clothing_type: string
+          condition: string
+          created_at?: string
+          description?: string | null
+          donor_email: string
+          donor_name: string
+          donor_phone: string
+          id?: string
+          image_url: string
+          size: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          clothing_type?: string
+          condition?: string
+          created_at?: string
+          description?: string | null
+          donor_email?: string
+          donor_name?: string
+          donor_phone?: string
+          id?: string
+          image_url?: string
+          size?: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           color: string

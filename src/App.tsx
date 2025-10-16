@@ -20,6 +20,7 @@ import SearchResults from "./pages/SearchResults";
 import Profile from "./pages/Profile";
 import Pants from "./pages/Pants";
 import Donation from "./pages/Donation";
+import DonationsList from "./pages/DonationsList";
 import CollectionWinter from "./pages/CollectionWinter";
 import CollectionSummer from "./pages/CollectionSummer";
 import CollectionWork from "./pages/CollectionWork";
@@ -56,6 +57,7 @@ const App = () => (
               <Route path="/busca" element={<Layout><SearchResults /></Layout>} />
               <Route path="/perfil" element={<Layout><Profile /></Layout>} />
               <Route path="/doacao" element={<Layout><Donation /></Layout>} />
+              <Route path="/doacoes" element={<Layout><DonationsList /></Layout>} />
               <Route path="/colecao/inverno" element={<Layout><CollectionWinter /></Layout>} />
               <Route path="/colecao/verao" element={<Layout><CollectionSummer /></Layout>} />
               <Route path="/colecao/trabalho" element={<Layout><CollectionWork /></Layout>} />

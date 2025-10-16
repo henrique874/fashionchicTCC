@@ -483,7 +483,7 @@ export const products: Product[] = [
     category: "feminino",
     type: "Calça",
     colors: ["Preto", "Cinza", "Azul Marinho"],
-    sizes: ["PP", "P", "M", "G", "GG"],
+    sizes: ["34", "36", "38", "40", "42", "44"],
     images: [
       "https://images.unsplash.com/photo-1526476148966-98bd039463ea?w=600&h=800&fit=crop",
       "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop"

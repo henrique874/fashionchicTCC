@@ -1,21 +1,31 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Upload, Heart } from "lucide-react";
+import { Upload, Heart, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Donation = () => {
   const [imagePreview, setImagePreview] = useState<string>("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [clothingType, setClothingType] = useState("");
+  const [size, setSize] = useState("");
+  const [condition, setCondition] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setImageFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -24,12 +34,62 @@ const Donation = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast({
-      title: "Doação registrada!",
-      description: "Obrigado por contribuir. Entraremos em contato em breve.",
-    });
+    setLoading(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const donorName = formData.get("name") as string;
+      const donorEmail = formData.get("email") as string;
+      const donorPhone = formData.get("phone") as string;
+      const description = formData.get("description") as string;
+
+      if (!imageFile) {
+        toast({
+          title: "Erro",
+          description: "Por favor, adicione uma foto da roupa.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
+      // Upload image to a temporary location (using base64 for now)
+      // In a real scenario, you'd upload to Supabase Storage
+      const imageUrl = imagePreview;
+
+      const { error } = await supabase.from("donations").insert({
+        user_id: user?.id || null,
+        donor_name: donorName,
+        donor_email: donorEmail,
+        donor_phone: donorPhone,
+        clothing_type: clothingType,
+        size: size,
+        condition: condition,
+        image_url: imageUrl,
+        description: description || null,
+        status: "pending",
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Doação registrada!",
+        description: "Obrigado por contribuir. Entraremos em contato em breve.",
+      });
+
+      navigate("/doacoes");
+    } catch (error) {
+      console.error("Error submitting donation:", error);
+      toast({
+        title: "Erro ao registrar doação",
+        description: "Não foi possível registrar sua doação. Tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -86,20 +146,20 @@ const Donation = () => {
               {/* Tipo de roupa */}
               <div className="space-y-2">
                 <Label htmlFor="type">Tipo de Roupa</Label>
-                <Select required>
+                <Select required value={clothingType} onValueChange={setClothingType}>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o tipo" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="camisa">Camisa</SelectItem>
-                    <SelectItem value="calca">Calça</SelectItem>
-                    <SelectItem value="vestido">Vestido</SelectItem>
-                    <SelectItem value="blusa">Blusa</SelectItem>
-                    <SelectItem value="casaco">Casaco/Jaqueta</SelectItem>
-                    <SelectItem value="saia">Saia</SelectItem>
-                    <SelectItem value="shorts">Shorts/Bermuda</SelectItem>
-                    <SelectItem value="terno">Terno/Blazer</SelectItem>
-                    <SelectItem value="outro">Outro</SelectItem>
+                    <SelectItem value="Camisa">Camisa</SelectItem>
+                    <SelectItem value="Calça">Calça</SelectItem>
+                    <SelectItem value="Vestido">Vestido</SelectItem>
+                    <SelectItem value="Blusa">Blusa</SelectItem>
+                    <SelectItem value="Casaco/Jaqueta">Casaco/Jaqueta</SelectItem>
+                    <SelectItem value="Saia">Saia</SelectItem>
+                    <SelectItem value="Shorts/Bermuda">Shorts/Bermuda</SelectItem>
+                    <SelectItem value="Terno/Blazer">Terno/Blazer</SelectItem>
+                    <SelectItem value="Outro">Outro</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -107,17 +167,25 @@ const Donation = () => {
               {/* Tamanho */}
               <div className="space-y-2">
                 <Label htmlFor="size">Tamanho</Label>
-                <Select required>
+                <Select required value={size} onValueChange={setSize}>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o tamanho" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="pp">PP</SelectItem>
-                    <SelectItem value="p">P</SelectItem>
-                    <SelectItem value="m">M</SelectItem>
-                    <SelectItem value="g">G</SelectItem>
-                    <SelectItem value="gg">GG</SelectItem>
-                    <SelectItem value="xg">XG</SelectItem>
+                    <SelectItem value="PP">PP</SelectItem>
+                    <SelectItem value="P">P</SelectItem>
+                    <SelectItem value="M">M</SelectItem>
+                    <SelectItem value="G">G</SelectItem>
+                    <SelectItem value="GG">GG</SelectItem>
+                    <SelectItem value="XG">XG</SelectItem>
+                    <SelectItem value="34">34</SelectItem>
+                    <SelectItem value="36">36</SelectItem>
+                    <SelectItem value="38">38</SelectItem>
+                    <SelectItem value="40">40</SelectItem>
+                    <SelectItem value="42">42</SelectItem>
+                    <SelectItem value="44">44</SelectItem>
+                    <SelectItem value="46">46</SelectItem>
+                    <SelectItem value="48">48</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -125,7 +193,7 @@ const Donation = () => {
               {/* Estado da roupa */}
               <div className="space-y-2">
                 <Label htmlFor="condition">Estado da Roupa</Label>
-                <Select required>
+                <Select required value={condition} onValueChange={setCondition}>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o estado" />
                   </SelectTrigger>
@@ -194,8 +262,15 @@ const Donation = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full" size="lg">
-                Enviar Doação
+              <Button type="submit" className="w-full" size="lg" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  "Enviar Doação"
+                )}
               </Button>
             </form>
           </CardContent>
