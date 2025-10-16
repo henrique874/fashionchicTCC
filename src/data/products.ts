@@ -437,8 +437,8 @@ export const products: Product[] = [
     colors: ["Verde Militar", "Bege", "Preto"],
     sizes: ["38", "40", "42", "44", "46", "48"],
     images: [
-      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1542574271-7f3b92e6c821?w=600&h=800&fit=crop"
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop"
     ],
     description: "Calça cargo com múltiplos bolsos. Estilo urbano e funcional.",
     composition: "98% Algodão, 2% Elastano",
