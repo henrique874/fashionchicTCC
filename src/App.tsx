@@ -25,6 +25,7 @@ import CollectionWinter from "./pages/CollectionWinter";
 import CollectionSummer from "./pages/CollectionSummer";
 import CollectionWork from "./pages/CollectionWork";
 import CollectionCasual from "./pages/CollectionCasual";
+import ResetPassword from "./pages/ResetPassword";
 
 const queryClient = new QueryClient();
 
@@ -62,6 +63,7 @@ const App = () => (
               <Route path="/colecao/verao" element={<Layout><CollectionSummer /></Layout>} />
               <Route path="/colecao/trabalho" element={<Layout><CollectionWork /></Layout>} />
               <Route path="/colecao/casual" element={<Layout><CollectionCasual /></Layout>} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>
           </CartProvider>
