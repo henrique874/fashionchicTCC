@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { useProductsByCategory, Product } from "@/hooks/useProducts";
 import {
   Select,
   SelectContent,
@@ -15,11 +15,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 const Category = () => {
   const { category } = useParams<{ category: string }>();
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const { products, loading } = useProductsByCategory(category as 'feminino' | 'masculino');
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [sortBy, setSortBy] = useState("relevance");
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
   const [showFilters, setShowFilters] = useState(false);
 
   const categoryTitle = category === "feminino" ? "Feminino" : "Masculino";
@@ -27,7 +28,7 @@ const Category = () => {
   const colors = ["Preto", "Branco", "Bege", "Azul", "Rosa", "Verde"];
 
   useEffect(() => {
-    let filtered = products.filter(p => p.category === category);
+    let filtered = [...products];
 
     // Apply size filter
     if (selectedSizes.length > 0) {
@@ -65,7 +66,7 @@ const Category = () => {
     }
 
     setFilteredProducts(filtered);
-  }, [category, sortBy, selectedSizes, selectedColors, priceRange]);
+  }, [products, category, sortBy, selectedSizes, selectedColors, priceRange]);
 
   const toggleSize = (size: string) => {
     setSelectedSizes(prev =>
@@ -160,52 +161,52 @@ const Category = () => {
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <Checkbox
-                      checked={priceRange[0] === 0 && priceRange[1] === 100}
+                      checked={priceRange[0] === 0 && priceRange[1] === 200}
                       onCheckedChange={(checked) => 
-                        setPriceRange(checked ? [0, 100] : [0, 1000])
+                        setPriceRange(checked ? [0, 200] : [0, 2000])
                       }
                     />
-                    <span className="text-sm">Até R$ 100</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <Checkbox
-                      checked={priceRange[0] === 100 && priceRange[1] === 200}
-                      onCheckedChange={(checked) => 
-                        setPriceRange(checked ? [100, 200] : [0, 1000])
-                      }
-                    />
-                    <span className="text-sm">R$ 100 - R$ 200</span>
+                    <span className="text-sm">Até R$ 200</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <Checkbox
                       checked={priceRange[0] === 200 && priceRange[1] === 500}
                       onCheckedChange={(checked) => 
-                        setPriceRange(checked ? [200, 500] : [0, 1000])
+                        setPriceRange(checked ? [200, 500] : [0, 2000])
                       }
                     />
                     <span className="text-sm">R$ 200 - R$ 500</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <Checkbox
-                      checked={priceRange[0] === 500}
+                      checked={priceRange[0] === 500 && priceRange[1] === 1000}
                       onCheckedChange={(checked) => 
-                        setPriceRange(checked ? [500, 1000] : [0, 1000])
+                        setPriceRange(checked ? [500, 1000] : [0, 2000])
                       }
                     />
-                    <span className="text-sm">Acima de R$ 500</span>
+                    <span className="text-sm">R$ 500 - R$ 1000</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <Checkbox
+                      checked={priceRange[0] === 1000}
+                      onCheckedChange={(checked) => 
+                        setPriceRange(checked ? [1000, 2000] : [0, 2000])
+                      }
+                    />
+                    <span className="text-sm">Acima de R$ 1000</span>
                   </label>
                 </div>
               </div>
 
               {/* Clear Filters */}
-              {(selectedSizes.length > 0 || selectedColors.length > 0 || priceRange[0] > 0 || priceRange[1] < 1000) && (
+              {(selectedSizes.length > 0 || selectedColors.length > 0 || priceRange[0] > 0 || priceRange[1] < 2000) && (
                 <Button
                   variant="outline"
                   className="w-full"
                   onClick={() => {
                     setSelectedSizes([]);
                     setSelectedColors([]);
-                    setPriceRange([0, 1000]);
+                    setPriceRange([0, 2000]);
                   }}
                 >
                   Limpar filtros
@@ -216,20 +217,28 @@ const Category = () => {
 
           {/* Products Grid */}
           <div className="lg:col-span-3">
-            <p className="text-muted-foreground mb-6">
-              {filteredProducts.length} produtos encontrados
-            </p>
-            
-            {filteredProducts.length > 0 ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+            {loading ? (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">Carregando produtos...</p>
               </div>
             ) : (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">Nenhum produto encontrado com os filtros selecionados.</p>
-              </div>
+              <>
+                <p className="text-muted-foreground mb-6">
+                  {filteredProducts.length} produtos encontrados
+                </p>
+                
+                {filteredProducts.length > 0 ? (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredProducts.map(product => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">Nenhum produto encontrado com os filtros selecionados.</p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

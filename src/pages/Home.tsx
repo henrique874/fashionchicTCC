@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import { ChevronRight, Sparkles } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import { products, getNewProducts, getSaleProducts } from "@/data/products";
+import { useProducts } from "@/hooks/useProducts";
 import { Button } from "@/components/ui/button";
 
 const Home = () => {
-  const newProducts = getNewProducts();
-  const saleProducts = getSaleProducts();
+  const { products, loading } = useProducts();
   const featuredProducts = products.slice(0, 8);
 
   return (
@@ -81,16 +80,22 @@ const Home = () => {
       <section className="py-16">
         <div className="container">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-heading text-3xl font-bold">Novidades</h2>
-            <Link to="/novidades" className="text-primary hover:text-gold-hover transition-colors">
+            <h2 className="font-heading text-3xl font-bold">Produtos em Destaque</h2>
+            <Link to="/categoria/feminino" className="text-primary hover:text-gold-hover transition-colors">
               Ver tudo <ChevronRight className="inline w-4 h-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {newProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">Carregando produtos...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -127,40 +132,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sale */}
-      {saleProducts.length > 0 && (
-        <section className="py-16 bg-beige-light">
-          <div className="container">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="font-heading text-3xl font-bold text-destructive">
-                Ofertas Especiais
-              </h2>
-              <Link to="/sale" className="text-destructive hover:text-destructive/80 transition-colors">
-                Ver tudo <ChevronRight className="inline w-4 h-4" />
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {saleProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Produtos em Destaque */}
-      <section className="py-16">
-        <div className="container">
-          <h2 className="font-heading text-3xl font-bold mb-8 text-center">
-            Mais Vendidos
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
     </main>
   );
 };

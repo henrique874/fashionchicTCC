@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ChevronLeft, ShoppingBag, Heart, Share2 } from "lucide-react";
-import { getProductById } from "@/data/products";
+import { ShoppingBag, Heart, Share2 } from "lucide-react";
+import { useProduct } from "@/hooks/useProducts";
 import { useCart } from "@/contexts/CartContext";
 import SizeCalculator from "@/components/SizeCalculator";
 import SizeChart from "@/components/SizeChart";
@@ -10,11 +10,19 @@ import { toast } from "@/hooks/use-toast";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = getProductById(id || "");
+  const { product, loading } = useProduct(id || "");
   const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedImage, setSelectedImage] = useState(0);
+
+  if (loading) {
+    return (
+      <div className="container py-16 text-center">
+        <p>Carregando...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -27,9 +35,7 @@ const ProductDetail = () => {
     );
   }
 
-  const discountedPrice = product.isSale && product.discount
-    ? product.price * (1 - product.discount / 100)
-    : product.price;
+  const discountedPrice = product.price;
 
   const handleAddToCart = async () => {
     if (!selectedSize) {
@@ -52,10 +58,8 @@ const ProductDetail = () => {
     await addItem({
       product_id: product.id,
       product_name: product.name,
-      product_price: product.isSale && product.discount 
-        ? product.price * (1 - product.discount / 100)
-        : product.price,
-      product_image: product.images[0],
+      product_price: product.price,
+      product_image: product.images[0] || '',
       quantity: 1,
       size: selectedSize,
       color: selectedColor,
@@ -109,35 +113,18 @@ const ProductDetail = () => {
 
           {/* Informações */}
           <div className="space-y-6">
-            {/* Badges */}
-            <div className="flex gap-2">
-              {product.isNew && <span className="badge-new">Novo</span>}
-              {product.isSale && <span className="badge-sale">-{product.discount}%</span>}
-            </div>
-
             <div>
               <h1 className="font-heading text-3xl font-bold mb-2">{product.name}</h1>
-              <p className="text-muted-foreground">{product.type}</p>
+              <p className="text-muted-foreground">{product.category === 'feminino' ? 'Feminino' : 'Masculino'}</p>
             </div>
 
             {/* Preço */}
             <div>
-              {product.isSale ? (
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl font-bold">
-                    R$ {discountedPrice.toFixed(2).replace(".", ",")}
-                  </span>
-                  <span className="text-xl line-through text-muted-foreground">
-                    R$ {product.price.toFixed(2).replace(".", ",")}
-                  </span>
-                </div>
-              ) : (
-                <span className="text-3xl font-bold">
-                  R$ {product.price.toFixed(2).replace(".", ",")}
-                </span>
-              )}
+              <span className="text-3xl font-bold">
+                R$ {product.price.toFixed(2).replace(".", ",")}
+              </span>
               <p className="text-sm text-muted-foreground mt-1">
-                ou em até 10x de R$ {(discountedPrice / 10).toFixed(2).replace(".", ",")} sem juros
+                ou em até 10x de R$ {(product.price / 10).toFixed(2).replace(".", ",")} sem juros
               </p>
             </div>
 
@@ -202,22 +189,14 @@ const ProductDetail = () => {
             <SizeCalculator />
 
             {/* Descrição */}
-            <div className="space-y-4 pt-6 border-t">
-              <details open>
-                <summary className="font-medium cursor-pointer">Descrição</summary>
-                <p className="text-sm text-muted-foreground mt-2">{product.description}</p>
-              </details>
-              
-              <details>
-                <summary className="font-medium cursor-pointer">Composição</summary>
-                <p className="text-sm text-muted-foreground mt-2">{product.composition}</p>
-              </details>
-              
-              <details>
-                <summary className="font-medium cursor-pointer">Cuidados</summary>
-                <p className="text-sm text-muted-foreground mt-2">{product.care}</p>
-              </details>
-            </div>
+            {product.description && (
+              <div className="space-y-4 pt-6 border-t">
+                <details open>
+                  <summary className="font-medium cursor-pointer">Descrição</summary>
+                  <p className="text-sm text-muted-foreground mt-2">{product.description}</p>
+                </details>
+              </div>
+            )}
           </div>
         </div>
 
