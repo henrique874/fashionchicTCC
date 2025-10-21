@@ -36,6 +36,16 @@ const Donation = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!user) {
+      toast({
+        title: "Faça login para continuar",
+        description: "Você precisa estar logado para doar roupas.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -55,12 +65,22 @@ const Donation = () => {
         return;
       }
 
+      if (!clothingType || !size || !condition) {
+        toast({
+          title: "Campos obrigatórios",
+          description: "Por favor, preencha todos os campos obrigatórios.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
       // Upload image to a temporary location (using base64 for now)
       // In a real scenario, you'd upload to Supabase Storage
       const imageUrl = imagePreview;
 
       const { error } = await supabase.from("donations").insert({
-        user_id: user?.id || null,
+        user_id: user.id,
         donor_name: donorName,
         donor_email: donorEmail,
         donor_phone: donorPhone,
