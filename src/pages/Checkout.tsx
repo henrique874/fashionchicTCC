@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,7 +28,7 @@ const checkoutSchema = z.object({
   fullName: z.string().min(2, "Nome completo é obrigatório"),
   email: z.string().email("Email inválido"),
   phone: z.string().min(10, "Telefone inválido"),
-  cep: z.string().length(8, "CEP deve ter 8 dígitos"),
+  cep: z.string().min(8, "CEP é obrigatório"),
   street: z.string().min(3, "Endereço é obrigatório"),
   number: z.string().min(1, "Número é obrigatório"),
   complement: z.string().optional(),
@@ -39,11 +39,22 @@ const checkoutSchema = z.object({
   // Payment
   paymentMethod: z.enum(["credit", "debit", "pix"]),
   
-  // Card details (conditional)
+  // Card details
   cardNumber: z.string().optional(),
   cardName: z.string().optional(),
   cardExpiry: z.string().optional(),
   cardCvv: z.string().optional(),
+}).refine((data) => {
+  if (data.paymentMethod !== "pix") {
+    return data.cardNumber && data.cardName && data.cardExpiry && data.cardCvv &&
+           data.cardNumber.length === 16 &&
+           data.cardExpiry.length === 5 &&
+           data.cardCvv.length === 3;
+  }
+  return true;
+}, {
+  message: "Preencha todos os dados do cartão corretamente",
+  path: ["cardNumber"],
 });
 
 export default function Checkout() {
@@ -71,6 +82,44 @@ export default function Checkout() {
       paymentMethod: "credit",
     },
   });
+
+  // Carregar dados do perfil
+  useEffect(() => {
+    const loadProfileData = async () => {
+      if (!user) return;
+
+      try {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        if (error) throw error;
+
+        if (data && data.address) {
+          const address = data.address as any;
+          form.reset({
+            fullName: data.full_name || "",
+            email: data.email || user.email || "",
+            phone: data.phone || "",
+            cep: address.zipCode?.replace(/\D/g, "") || "",
+            street: address.street || "",
+            number: address.number || "",
+            complement: address.complement || "",
+            neighborhood: address.neighborhood || "",
+            city: address.city || "",
+            state: address.state || "",
+            paymentMethod: "credit",
+          });
+        }
+      } catch (error) {
+        console.error("Erro ao carregar dados do perfil:", error);
+      }
+    };
+
+    loadProfileData();
+  }, [user, form]);
 
   const generatePixPayment = async () => {
     // Generate PIX code (simplified - in production, integrate with payment provider)
@@ -103,18 +152,6 @@ export default function Checkout() {
     setLoading(true);
     
     try {
-      // Validate card details if payment is credit/debit
-      if (values.paymentMethod !== "pix") {
-        if (!values.cardNumber || !values.cardName || !values.cardExpiry || !values.cardCvv) {
-          toast({
-            title: "Dados do cartão incompletos",
-            description: "Por favor, preencha todos os dados do cartão",
-            variant: "destructive",
-          });
-          setLoading(false);
-          return;
-        }
-      }
 
       // Create order in database
       const orderData = {
@@ -391,9 +428,17 @@ export default function Checkout() {
                         name="cardNumber"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Número do Cartão</FormLabel>
+                            <FormLabel>Número do Cartão *</FormLabel>
                             <FormControl>
-                              <Input placeholder="0000 0000 0000 0000" maxLength={16} {...field} />
+                              <Input 
+                                placeholder="0000000000000000" 
+                                maxLength={16}
+                                {...field}
+                                onChange={(e) => {
+                                  const value = e.target.value.replace(/\D/g, "");
+                                  field.onChange(value);
+                                }}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -405,9 +450,9 @@ export default function Checkout() {
                         name="cardName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Nome no Cartão</FormLabel>
+                            <FormLabel>Nome no Cartão *</FormLabel>
                             <FormControl>
-                              <Input {...field} />
+                              <Input placeholder="NOME COMPLETO" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -420,9 +465,20 @@ export default function Checkout() {
                           name="cardExpiry"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Validade</FormLabel>
+                              <FormLabel>Validade *</FormLabel>
                               <FormControl>
-                                <Input placeholder="MM/AA" maxLength={5} {...field} />
+                                <Input 
+                                  placeholder="MM/AA" 
+                                  maxLength={5}
+                                  {...field}
+                                  onChange={(e) => {
+                                    let value = e.target.value.replace(/\D/g, "");
+                                    if (value.length >= 2) {
+                                      value = value.slice(0, 2) + "/" + value.slice(2, 4);
+                                    }
+                                    field.onChange(value);
+                                  }}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -434,9 +490,17 @@ export default function Checkout() {
                           name="cardCvv"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>CVV</FormLabel>
+                              <FormLabel>CVV *</FormLabel>
                               <FormControl>
-                                <Input placeholder="000" maxLength={3} {...field} />
+                                <Input 
+                                  placeholder="000" 
+                                  maxLength={3}
+                                  {...field}
+                                  onChange={(e) => {
+                                    const value = e.target.value.replace(/\D/g, "");
+                                    field.onChange(value);
+                                  }}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
