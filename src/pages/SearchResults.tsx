@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/useProducts";
 import {
   Select,
   SelectContent,
@@ -13,6 +13,7 @@ import {
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
+  const { products, loading } = useProducts();
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [sortBy, setSortBy] = useState("relevance");
 
@@ -25,8 +26,8 @@ const SearchResults = () => {
     const searchTerm = query.toLowerCase();
     let filtered = products.filter(product =>
       product.name.toLowerCase().includes(searchTerm) ||
-      product.description.toLowerCase().includes(searchTerm) ||
-      product.type.toLowerCase().includes(searchTerm) ||
+      (product.description && product.description.toLowerCase().includes(searchTerm)) ||
+      (product.subcategory && product.subcategory.toLowerCase().includes(searchTerm)) ||
       product.category.toLowerCase().includes(searchTerm)
     );
 
@@ -47,7 +48,7 @@ const SearchResults = () => {
     }
 
     setFilteredProducts(filtered);
-  }, [query, sortBy]);
+  }, [query, sortBy, products]);
 
   return (
     <main className="py-8 min-h-[60vh]">
@@ -91,6 +92,10 @@ const SearchResults = () => {
         {!query ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground">Digite algo para buscar produtos.</p>
+          </div>
+        ) : loading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Carregando...</p>
           </div>
         ) : filteredProducts.length > 0 ? (
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

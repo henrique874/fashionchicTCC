@@ -1,16 +1,28 @@
 import { Link } from "react-router-dom";
-import { products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
+import { useProducts } from "@/hooks/useProducts";
 
 const CollectionWinter = () => {
+  const { products, loading } = useProducts();
+  
   // Produtos de inverno: Casacos, Jaquetas, Suéteres, Cardigans
   const winterProducts = products.filter(
     (product) =>
-      product.type === "Casaco" ||
-      product.type === "Jaqueta" ||
-      product.type === "Suéter" ||
-      product.type === "Cardigan"
+      product.subcategory === "Casaco" ||
+      product.subcategory === "Jaqueta" ||
+      product.subcategory === "Suéter" ||
+      product.subcategory === "Cardigan"
   );
+
+  if (loading) {
+    return (
+      <main className="py-16">
+        <div className="container">
+          <p className="text-center">Carregando produtos...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="py-16">

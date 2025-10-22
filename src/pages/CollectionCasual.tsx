@@ -1,18 +1,28 @@
 import { Link } from "react-router-dom";
-import { products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
+import { useProducts } from "@/hooks/useProducts";
 
 const CollectionCasual = () => {
-  // Produtos casuais: Camisetas, Polos, Calças casuais, Jeans com preços mais acessíveis
+  const { products, loading } = useProducts();
+  
+  // Produtos casuais: Camisetas, Polos, Calças, Blusas
   const casualProducts = products.filter(
     (product) =>
-      (product.type === "Camiseta" ||
-      product.type === "Polo" ||
-      product.type === "Calça" && (product.name.includes("Jogger") || product.name.includes("Chino") || product.name.includes("Cargo") || product.name.includes("Jeans")) ||
-      product.type === "Blusa" ||
-      product.type === "Body") &&
-      product.price <= 600 // Preços mais acessíveis
+      product.subcategory === "Camiseta" ||
+      product.subcategory === "Polo" ||
+      product.subcategory === "Calça" ||
+      product.subcategory === "Blusa"
   );
+
+  if (loading) {
+    return (
+      <main className="py-16">
+        <div className="container">
+          <p className="text-center">Carregando produtos...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="py-16">

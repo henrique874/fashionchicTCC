@@ -1,9 +1,20 @@
 import { Link } from "react-router-dom";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/useProducts";
 
 const News = () => {
-  const newProducts = products.filter(p => p.isNew).slice(0, 12);
+  const { products, loading } = useProducts();
+  const newProducts = products.slice(0, 12);
+
+  if (loading) {
+    return (
+      <main className="py-8">
+        <div className="container">
+          <p className="text-center">Carregando produtos...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="py-8">

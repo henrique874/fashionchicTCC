@@ -1,16 +1,32 @@
-import { useState } from "react";
-import { products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import SizeCalculator from "@/components/SizeCalculator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useProducts } from "@/hooks/useProducts";
 
 const Pants = () => {
+  const { products, loading } = useProducts();
+  
+  // Filtrar apenas calças e shorts
   const pantsProducts = products.filter(
-    (product) => product.type === "Calça" || product.type === "Bermuda" || product.type === "Shorts"
+    (product) =>
+      product.subcategory === "Calça" ||
+      product.subcategory === "Bermuda" ||
+      product.subcategory === "Shorts"
   );
 
+  // Separar por categoria
   const femininePants = pantsProducts.filter((p) => p.category === "feminino");
   const masculinePants = pantsProducts.filter((p) => p.category === "masculino");
+
+  if (loading) {
+    return (
+      <main className="py-16">
+        <div className="container">
+          <p className="text-center">Carregando produtos...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="py-16">

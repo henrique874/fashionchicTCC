@@ -1,10 +1,21 @@
 import { Link } from "react-router-dom";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
 import { Badge } from "@/components/ui/badge";
+import { useProducts } from "@/hooks/useProducts";
 
 const Sale = () => {
-  const saleProducts = products.filter(p => p.isSale);
+  const { products, loading } = useProducts();
+  const saleProducts = products; // Todos os produtos estão em promoção
+
+  if (loading) {
+    return (
+      <main className="py-8">
+        <div className="container">
+          <p className="text-center">Carregando produtos...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="py-8">

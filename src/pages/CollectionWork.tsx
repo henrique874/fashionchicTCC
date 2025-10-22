@@ -1,17 +1,29 @@
 import { Link } from "react-router-dom";
-import { products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
+import { useProducts } from "@/hooks/useProducts";
 
 const CollectionWork = () => {
-  // Produtos para trabalho: Ternos, Blazers, Camisas sociais, Calças sociais, Vestidos elegantes
+  const { products, loading } = useProducts();
+  
+  // Produtos para trabalho: Ternos, Blazers, Camisas, Calças, Vestidos
   const workProducts = products.filter(
     (product) =>
-      product.type === "Terno" ||
-      product.type === "Blazer" ||
-      (product.type === "Camisa" && product.name.includes("Social")) ||
-      (product.type === "Calça" && (product.name.includes("Alfaiataria") || product.name.includes("Social"))) ||
-      (product.type === "Vestido" && (product.name.includes("Elegance") || product.name.includes("Gala")))
+      product.subcategory === "Terno" ||
+      product.subcategory === "Blazer" ||
+      product.subcategory === "Camisa" ||
+      product.subcategory === "Vestido" ||
+      (product.subcategory === "Calça" && product.name.includes("Alfaiataria"))
   );
+
+  if (loading) {
+    return (
+      <main className="py-16">
+        <div className="container">
+          <p className="text-center">Carregando produtos...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="py-16">
