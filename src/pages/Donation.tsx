@@ -148,19 +148,19 @@ const Donation = () => {
               {/* Nome do doador */}
               <div className="space-y-2">
                 <Label htmlFor="name">Seu Nome</Label>
-                <Input id="name" placeholder="Nome completo" required />
+                <Input id="name" name="name" placeholder="Nome completo" required />
               </div>
 
               {/* Email */}
               <div className="space-y-2">
                 <Label htmlFor="email">E-mail</Label>
-                <Input id="email" type="email" placeholder="seu@email.com" required />
+                <Input id="email" name="email" type="email" placeholder="seu@email.com" required />
               </div>
 
               {/* Telefone */}
               <div className="space-y-2">
                 <Label htmlFor="phone">Telefone</Label>
-                <Input id="phone" type="tel" placeholder="(00) 00000-0000" required />
+                <Input id="phone" name="phone" type="tel" placeholder="(00) 00000-0000" required />
               </div>
 
               {/* Tipo de roupa */}
@@ -277,6 +277,7 @@ const Donation = () => {
                 <Label htmlFor="description">Descrição Adicional (opcional)</Label>
                 <Textarea
                   id="description"
+                  name="description"
                   placeholder="Cor, marca, detalhes sobre o estado..."
                   rows={4}
                 />
