@@ -5,7 +5,7 @@ import { useProducts } from "@/hooks/useProducts";
 
 const Sale = () => {
   const { products, loading } = useProducts();
-  const saleProducts = products; // Todos os produtos estão em promoção
+  const saleProducts = products.filter(product => product.on_sale);
 
   if (loading) {
     return (

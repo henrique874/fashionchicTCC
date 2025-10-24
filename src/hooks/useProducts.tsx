@@ -12,6 +12,8 @@ export interface Product {
   images: string[];
   description?: string;
   stock?: number;
+  on_sale?: boolean;
+  discount_percentage?: number;
   created_at?: string;
   updated_at?: string;
 }

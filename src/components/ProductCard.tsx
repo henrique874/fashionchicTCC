@@ -66,14 +66,32 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
 
           {/* Preço */}
-          <div className="flex items-baseline gap-2">
-            <span className="font-semibold text-lg">
-              R$ {product.price.toFixed(2).replace(".", ",")}
-            </span>
+          <div className="flex items-baseline gap-2 flex-wrap">
+            {product.on_sale && product.discount_percentage ? (
+              <>
+                <span className="font-semibold text-lg text-destructive">
+                  R$ {(product.price * (1 - product.discount_percentage / 100)).toFixed(2).replace(".", ",")}
+                </span>
+                <span className="text-sm text-muted-foreground line-through">
+                  R$ {product.price.toFixed(2).replace(".", ",")}
+                </span>
+                <span className="text-xs font-medium text-destructive bg-destructive/10 px-2 py-0.5 rounded">
+                  -{product.discount_percentage}%
+                </span>
+              </>
+            ) : (
+              <span className="font-semibold text-lg">
+                R$ {product.price.toFixed(2).replace(".", ",")}
+              </span>
+            )}
           </div>
           
           <p className="text-xs text-muted-foreground">
-            ou 10x de R$ {(product.price / 10).toFixed(2).replace(".", ",")}
+            ou 10x de R$ {(
+              product.on_sale && product.discount_percentage 
+                ? (product.price * (1 - product.discount_percentage / 100)) / 10
+                : product.price / 10
+            ).toFixed(2).replace(".", ",")}
           </p>
         </div>
       </div>
